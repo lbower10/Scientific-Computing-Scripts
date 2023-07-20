@@ -32,7 +32,7 @@ def Ax(v):
 b = array([0,0,100,0,0,100,200,200,300])*(-1.0)
 x = zeros((9))*1.0
 tol = 1e-06
-s1,numIter = conjGrad(??) # TODO
+s1,numIter = conjGrad(Ax, x, b) # TODO
 print("\nThe solution is:\n",s1)
 print("\nNumber of iterations =",numIter, "using Tol: ", 1e-06)
 
