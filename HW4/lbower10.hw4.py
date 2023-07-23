@@ -24,10 +24,19 @@ from conjGrad import *
 # Refer to pg. 101 for what the matrix Ax should be
 
 def Ax(v):
-  Ax = zeros((9))*1.0
-  
-  # fill in the 9 rows of Ax
-  return Ax
+	Ax = zeros((9))*1.0
+	# fill in the 9 rows of Ax
+	Ax[0] = - 4.0*v[0] + v[1] + v[3]
+	Ax[1] = v[0] - 4.0*v[1] + v[2] + v[4]
+	Ax[2] = v[1] - 4.0*v[2] + v[5]
+	Ax[3] = v[0] - 4.0*v[3] + v[4] +v[6]
+	Ax[4] = v[1] + v[3] - 4.0*v[4] + v[5] + v[7]
+	Ax[5] = v[2] + v[4] - 4.0*v[5] + v[8]
+	Ax[6] = v[3] - 4.0*v[6] + v[7]
+	Ax[7] = v[4] + v[6] - 4.0*v[7] + v[8]
+	Ax[8] = v[5] + v[7] - 4.0*v[8]
+	
+	return Ax
 
 b = array([0,0,100,0,0,100,200,200,300])*(-1.0)
 x = zeros((9))*1.0
@@ -44,4 +53,4 @@ print("Iterations   Tolerance")
 #
 #
 # Finally, print the error between the solutions using the 1.e-06 and 1.e-16 tolerances
-print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ",??????????,"\n") # TODO
+# print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ",??????????,"\n") # TODO
