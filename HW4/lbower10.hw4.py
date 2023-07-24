@@ -38,10 +38,11 @@ def Ax(v):
 	
 	return Ax
 
+
 b = array([0,0,100,0,0,100,200,200,300])*(-1.0)
 x = zeros((9))*1.0
 tol = 1e-06
-s1,numIter = conjGrad(Ax, x, b) # TODO
+s1,numIter = conjGrad(Ax, x, b, tol) # TODO
 print("\nThe solution is:\n",s1)
 print("\nNumber of iterations =",numIter, "using Tol: ", 1e-06)
 
@@ -51,6 +52,20 @@ print("Iterations   Tolerance")
 # Create a loop here to call conjGrad with these tolerances and obtain/print the iteration
 # count with each tolerance used:  1.e-02, 1.e-04, 1.e-06, 1.e-08, 1.e-10, 1.e-12, 1.e-14, 1.e-16
 #
-#
+tols = [1.e-02, 1.e-04, 1.e-06, 1.e-08, 1.e-10, 1.e-12, 1.e-14, 1.e-16]
+
+for tolerance in tols:
+	s1,numIter = conjGrad(Ax, x, b, tol)
+
+	# storing error solutions
+	if tolerance == 1.e-06:
+		solOne, _  = conjGrad(Ax, x, b, tolerance) # included '_' to exclude the solution vectors
+	if tolerance == 1.e-16:
+		solTwo, _  = conjGrad(Ax, x, b, tolerance)
+	
+	print("\nThe solution is:\n",s1)
+	print("\nNumber of iterations =",numIter, "using Tol: ", tolerance)
+
 # Finally, print the error between the solutions using the 1.e-06 and 1.e-16 tolerances
-# print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ",??????????,"\n") # TODO
+error = linalg.norm(solOne - solTwo)
+print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ",error,"\n") # TODO
