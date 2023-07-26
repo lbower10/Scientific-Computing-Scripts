@@ -42,7 +42,7 @@ def Ax(v):
 
 b = array([0,0,100,0,0,100,200,200,300])*(-1.0)
 x = zeros((9))*1.0
-tol = 1e-06
+tol = 1.e-06
 s1,numIter = conjGrad(Ax, x, b, tol)
 
 print("\nThe solution is:\n",s1)
@@ -55,14 +55,9 @@ print("Iterations   Tolerance")
 tols = [1.e-02, 1.e-04, 1.e-06, 1.e-08, 1.e-10, 1.e-12, 1.e-14, 1.e-16]
 
 for tolerance in tols:
-	s1,numIter = conjGrad(Ax, x, b, tolerance)
-
-	if tolerance == 1.e-06:
-		solOne, _  = conjGrad(Ax, x, b, tolerance)
-	if tolerance == 1.e-16:
-		solTwo, _  = conjGrad(Ax, x, b, tolerance)
+	s,numIter = conjGrad(Ax, x, b, tolerance)
 	print(f'    {numIter}\t      {tolerance:.1e}')
 
 # Finally, print the error between the solutions using the 1.e-06 and 1.e-16 tolerances
-error = linalg.norm(solOne - solTwo)
-print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ",error,"\n")
+s2, _  = conjGrad(Ax, x, b, tols[len(tols) - 1])
+print("\nError between vectors obtained with tol=1e-06 and tol=1e-16: ", linalg.norm(s1 - s2), "\n")
