@@ -8,7 +8,7 @@
 
 from numpy import array,zeros
 from polyFit import *
-import matplotlib.pyplot as pylab
+import pylab
 
 def evalPoly(c,x): # c stores coefficients for polynomial
     m = len(c) - 1 # (copied from polyFit module)
@@ -17,8 +17,10 @@ def evalPoly(c,x): # c stores coefficients for polynomial
         p = p*x + c[m-j-1]
     return p
 
-xData = array([1718, 1767, 1774, 1775, 1792, 1816, 1828, 1834, 1878, 1906]) # xData array contains the years
-yData = array([0.5, 0.8, 1.4, 2.7, 4.5, 7.5, 12.0, 17.0, 17.2, 23.0]) # yData array contains the efficiencies (as percentages)
+xData = array([1718, 1767, 1774, 1775, 1792, 
+               1816, 1828, 1834, 1878, 1906]) # xData array contains the years
+yData = array([0.5, 0.8, 1.4, 2.7, 4.5,
+               7.5, 12.0, 17.0, 17.2, 23.0]) # yData array contains the efficiencies (as percentages)
 
 minsdev=float("inf")
 minpoly=0
@@ -31,26 +33,24 @@ for m in range(1,6):   # Try m=1,2,3,4,5 (degree of polynomial)
     stdev = stdDev(coeff, xData, yData) # get stdev of the error in the fit
     proj  = evalPoly(coeff, 2000) # evaluate the polynomial at year 2000
 
-#   Year 2000 projections >= 100 or < 0 are meaniningless        
+    # Year 2000 projections >= 100 or < 0 are meaniningless        
     if (stdev < minsdev) and proj < 100 and proj > 0 :
 
         print('{:3d}\t{:5.3f}\t{:5.3f}\t{:s}'.format(m,stdev,proj,'viable'))
         ys= [evalPoly(coeff, x) for x in xData] # get y-coordinates of polynomial using x-coordinates in xData array
 
-#       Use Matplotlib to plot original data points with validated curve fitting
+        # Use Matplotlib to plot original data points with validated curve fitting
         pylab.figure()
         pylab.xlabel("x")
         pylab.ylabel("Thermal Efficiency")
         my_title= 'Fit with poly degree = ' + str(m) + '; green dot is 2000 projection'
         pylab.title(my_title)
-        pylab.xlim(1710, 2015)            # x-axis values should range from 1710 to 2015
-        pylab.plot(2000, proj, 'go')            # plot Year 2000 projection as a green dot
-        pylab.plot(xData, yData, 'ro')            # plot the original data given in the xData and yData
-                                   # arrays as red dots
-        pylab.plot(xData, ys, 'b-')            # plot polynomial curve using xData and ys arrays
-                                   # and make it blue.
+        pylab.xlim(1710, 2015)
+        pylab.plot(2000, proj, 'go')
+        pylab.plot(xData, yData, 'ro')
+        pylab.plot(xData, ys, 'b-')
         pylab.grid()
-        fname='degree' + str(m) + 'fit.png' # save figure to file rather than display
+        fname='degree' + str(m) + 'fit.png'
         pylab.savefig(fname)
     else :
         print('{:3d}\t{:5.3f}\t{:5.3f}\t{:s}'.format(m,stdev,proj,'not viable'))
