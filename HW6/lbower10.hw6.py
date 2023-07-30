@@ -3,7 +3,7 @@
     File: lbower10.hw6.py
     Author: Logan Bowers
     COSC 360 HW6
-    Curve fitting using polynomial interpolation
+    Curve fitting using linear regression
 '''
 
 from numpy import array,zeros
