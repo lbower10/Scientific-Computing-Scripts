@@ -17,12 +17,13 @@ import matplotlib.pyplot as plt
 #  e, and alpha.  Provide your name and assignment number in this comment
 #  block also.
 #
-#  ???
-#  ???
-#  ???
-#  ???
-#  ???
-#  ???
+#  Logan Bowers --- lbower10
+#  COSC 370 HW7
+#  R - Distance from center of Earth to satellite
+#  Theta - Satellite's angular position in orbit
+#  C - Constant, semi-major axis of satellite's orbit
+#  e - Eccentricity of orbit, descripes orbital shape
+#  Alpha - Phase angle of orbit
 #
 #  Given (R, theta) data pairs: (6870km, -30deg),(6728km, 0deg), (6615km, 30deg)
 #
@@ -45,19 +46,19 @@ import matplotlib.pyplot as plt
 
 #  Complete the following function below, where F[j] returns the left-hand-side
 #  of [Eqn1] where R and theta are given by the jth data pair.
-#
 def F(x):
+    C, e, alpha = x[0], x[1], x[2]
     F = zeros((len(x)), dtype=float64)
-    F[0] = ???
-    F[1] = ???
-    F[2] = ???
+    F[0] = C / (1 + e * sin(alpha)) - x[0]
+    F[1] = C / (1 + e * sin(alpha + pi/2)) - x[0]
+    F[2] = C / (1 + e * sin(alpha)) - C / (1 + e * sin(alpha + pi/2))
     return F
 
 # Initial guess
-x = np.array(???)  # What list needs to be used to initialze the Newton-Raphson (N-R) method?
+x = np.array([6800, 0.5, 0])  # What list needs to be used to initialze the Newton-Raphson (N-R) method?
 
 # Complete the call to the N-R method to solve for unknowns
-x = newtonRaphson2(??)
+x = newtonRaphson2(F, x)
 
 # Print the solution vector x from N-R
 print()
@@ -65,8 +66,8 @@ np.set_printoptions(precision = 3)
 print('[ C  e  alpha] = ' + np.array_str(x))
 
 # Calculate minimum trajectory and angle using components of x
-minTheta = ???
-minR = ???
+minTheta = pi/2 - x[2]
+minR = x[0] / (1+ x[1] * sin(x[2]))
 
 # Print minimum trajectory results
 print('Minimum trajectory = %.3f km' % minR)
