@@ -6,7 +6,7 @@
 # Romberg Integration and provide your name and assignment number.
 #  
 # ??? 
-# ??? 
+# ???
 # ??? 
 #  
 from romberg import *
@@ -15,22 +15,23 @@ import matplotlib.pyplot as plt
 
 def f(x):
   if x == 0: return 0
-  else: return  ???   # define the integrable function here
+  else: return exp(-x ** 2) # define the integrable function here
 
 u = arange(0,1.01,0.05)
 print ("    u\t   g(u)")
 gu = [] #list that will contain all of g(u)s (y-coordinates for your plot)
 
 for i in u:
-  if i == 0: g = 0.0;
+  if i == 0: g = 0.0
   else:
-    I,nPanels = ???  # perform romberg integration on f here (get result in
-                     # I, nPanels is the number of panels used but is not
-                     # used for output.
-    g = ???          # evaluate g(i) here
+    # perform romberg integration on f here (get result in
+    # I, nPanels is the number of panels used but is not
+    # used for output.
+    I,nPanels = romberg(f, 0, i)
+    g = I          # evaluate g(i) here
   print ('{:6.2f}{:13.6f}'.format(i,g))
   gu.append(g)
-#
+
 # Place the code that creates the required plot using pylab here.
 # Be sure to label axes and provide the same title as shown
 # in the "prob6_1-14.png" image file on BB
